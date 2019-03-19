@@ -14,6 +14,9 @@ else {
 		if (!(move_uploaded_file($_FILES['file']['tmp_name'], "object.glb")))
 			echo "transfert failure";
 		else
+		{
+			chmod("object.glb", 0777);
 			echo "ok";
+		}
 	}
 }
