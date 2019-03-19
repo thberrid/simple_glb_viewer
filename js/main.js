@@ -4,6 +4,7 @@ var renderer = new THREE.WebGLRenderer({"antialias": true});
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setClearColor(0xe2e2e2, 1);
 document.body.appendChild(renderer.domElement);
+renderer.domElement.id = "canvas";
 
 var geometry = new THREE.BoxGeometry(1,1,1);
 var material = new THREE.MeshBasicMaterial({color: 0x00ff00});

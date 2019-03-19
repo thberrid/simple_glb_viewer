@@ -2,12 +2,12 @@
 
 if ($_FILES['file']['error'] > 0)
 	echo "upload error";
-else if ($_FILES['file']['size'] > 5000000)
-	echo "upload error";
+else if (!$_FILES['file']['size'])
+	echo "size over";
 else {
 	$extension = strtolower(substr(strrchr($_FILES['file']['name'], '.'), 1));
 	if ($extension != "glb")
-		echo "incorrect extension";
+		echo "wrong extension";
 	else {
 		if (file_exists("object.glb"))
 			unlink("object.glb");

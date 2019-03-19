@@ -1,16 +1,3 @@
-function loadScripts(scripts){
-	console.log(scripts);
-	var newScript = document.createElement("script");
-	newScript.src = "js/" + scripts[0];
-	newScript.addEventListener("load", function(){
-		console.log(scripts[0] + " added");
-		scripts.shift();
-		if (scripts.length)
-			loadScripts(scripts);
-	});
-	document.body.appendChild(newScript);
-}
-
 var fileInput = document.getElementById("file-input");
 fileInput.addEventListener("change", function(){
 	var request = new XMLHttpRequest();
@@ -23,8 +10,19 @@ fileInput.addEventListener("change", function(){
 	});
 	request.addEventListener("load", function(){
 		console.log(request.responseText);
-		if (request.responseText == "ok")
-			loadScripts(["three.min.js", "GLTFLoader.js", "main.js"]);
+		if (request.responseText == "ok"){
+			var canvas = document.getElementById("canvas");
+			if (canvas){
+				canvas.parentNode.removeChild(canvas);
+				oldScript = document.getElementsByTagName("script")[3];
+				oldScript.parentNode.removeChild(oldScript);
+			}
+			var newScript = document.createElement("script");
+			newScript.src = "js/main.js";
+			document.body.appendChild(newScript);
+		}
+		else
+			alert(request.responseText);
 	});
 	var formData = new FormData();
 	formData.append("file", fileInput.files[0]);
